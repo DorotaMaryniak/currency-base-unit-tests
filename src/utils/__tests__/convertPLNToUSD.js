@@ -24,3 +24,20 @@ describe('ConvertPLNtoUSD', () => {
 
     });
   });
+
+  describe('ConvertPLNtoUSD', () => {
+    it('should return "Error"  when input is not text or number', () => {
+      expect(convertPLNToUSD({})).toBe('Error');
+      expect(convertPLNToUSD([])).toBe('Error');
+      expect(convertPLNToUSD(null)).toBe('Error');
+      expect(convertPLNToUSD(function() {})).toBe('Error');
+    });
+  });
+
+  describe('ConvertPLNtoUSD', () => {
+    it('should return "$0.00"  when input is lower then 0', () => {
+      expect(convertPLNToUSD(-89)).toBe('$0.00');
+      expect(convertPLNToUSD(-0.01)).toBe('$0.00');
+      expect(convertPLNToUSD(-543)).toBe('$0.00');
+     });
+  });
