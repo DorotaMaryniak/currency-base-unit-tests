@@ -17,3 +17,10 @@ describe('ConvertPLNtoUSD', () => {
       expect(convertPLNToUSD('"pOl')).toBeNaN();
     });
   });
+
+  describe('ConvertPLNtoUSD', () => {
+    it('should return NaN  when input is empty', () => {
+      expect(convertPLNToUSD()).toBeNaN();
+
+    });
+  });
