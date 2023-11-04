@@ -43,5 +43,58 @@ import '@testing-library/jest-dom/extend-expect';
       }
       });
 
+      it('should render proper info about conversion when USD-> USD', () => {
+
+        const testCasesUSDtoPLN = [
+            { amount: '347', from: 'USD', to: 'USD' , result:'$347.00 = $347.00'},
+            { amount: '234', from: 'USD', to: 'USD' , result: '$234.00 = $234.00'},
+            { amount: '200', from: 'USD', to: 'USD', result: '$200.00 = $200.00'},
+            { amount: '345', from: 'USD', to: 'USD', result: '$345.00 = $345.00'},
+      ];
+
+      for (const testObj of testCasesUSDtoPLN){
+        render(<ResultBox from = {testObj.from} to={testObj.to} amount={parseFloat(testObj.amount)}/>);
+
+    const resultField = screen.getByTestId('result');
+    expect(resultField).toHaveTextContent(testObj.result);
+    cleanup();
+      }
+      });
+
+      it('should render proper info about conversion when PLN-> PLN', () => {
+
+        const testCasesUSDtoPLN = [
+            { amount: '347', from: 'PLN', to: 'PLN' , result:'PLN 347.00 = PLN 347.00'},
+            { amount: '234', from: 'PLN', to: 'PLN' , result: 'PLN 234.00 = PLN 234.00'},
+            { amount: '200', from: 'PLN', to: 'PLN', result: 'PLN 200.00 = PLN 200.00'},
+            { amount: '345', from: 'PLN', to: 'PLN', result: 'PLN 345.00 = PLN 345.00'},
+      ];
+
+      for (const testObj of testCasesUSDtoPLN){
+        render(<ResultBox from = {testObj.from} to={testObj.to} amount={parseFloat(testObj.amount)}/>);
+
+    const resultField = screen.getByTestId('result');
+    expect(resultField).toHaveTextContent(testObj.result);
+    cleanup();
+      }
+      });
+
+      it('should render text "Wrong value" when amount is lower then 0', () => {
+
+        const testCasesNegative = [
+            { amount: '-100', from: 'PLN', to: 'USD' , result:'Wrong value'},
+            { amount: '-0.5', from: 'USD', to: 'PLN' , result: 'Wrong value'},
+            { amount: '-21456', from: 'PLN', to: 'USD', result: 'Wrong value'},
+            { amount: '-345', from: 'USD', to: 'PLN', result: 'Wrong value'},
+      ];
+
+      for (const testObj of testCasesNegative){
+        render(<ResultBox from = {testObj.from} to={testObj.to} amount={parseFloat(testObj.amount)}/>);
+
+    const resultField = screen.getByTestId('result');
+    expect(resultField).toHaveTextContent(testObj.result);
+    cleanup();
+      }
+      });
 
 });
